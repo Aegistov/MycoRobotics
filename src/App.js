@@ -5,8 +5,7 @@ import './master.css';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
 import * as firebase from 'firebase';
 import generalChartData from './data/user.json';
-import Modal from 'react-modal';
-import {PageHeader, Grid, Row, Col} from 'react-bootstrap';
+import {PageHeader, Grid, Row, Col, Modal, Button} from 'react-bootstrap';
 
 const config = {
     apiKey: "AIzaSyDlPyqOgzi6kJVZiL6dcsGBiOTdEoQce6c",
@@ -91,7 +90,7 @@ class AirSensor extends Component {
           </button>
           <div>
           <Modal
-            isOpen={this.state.modalIsOpen}
+            isOpen={this.state.showModal}
             onAfterOpen={this.afterOpenModal}
             onRequestClose={this.closeModal}
             contentLabel="Example Modal"
@@ -111,55 +110,48 @@ class Sensor extends Component {
     super();
     this.state = {
       active: false,
-      // width: 1024,
-      // height: 1500,
-      modalIsOpen: false
+      showModal: false
     }
 
-    this.openModal = this.openModal.bind(this);
-    this.afterOpenModal = this.afterOpenModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
+    this.open = this.open.bind(this);
+    this.close = this.close.bind(this);
     this.toggleChart = this.toggleChart.bind(this);
-    // this.updateDimensions = this.updateDimensions.bind(this);
   }
 
-  openModal() {
-    this.setState({modalIsOpen: true});
+  open() {
+    this.setState({showModal: true});
   }
 
-  afterOpenModal() {
-    // references are now sync'd and can be accessed.
-    // this.subtitle.style.color = '#f00';
-  }
-
-  closeModal() {
-    this.setState({modalIsOpen: false});
+  close() {
+    this.setState({showModal: false});
   }
 
   toggleChart() {
-    console.log("click!\n");
       this.setState(prevState => ({
       active: !prevState.active
     }));
-      console.log(this.state.active);
   }
 
   render() {
     return(
       <div className="SensorInfo">
-        <button className="SensorButton" onClick={this.openModal}>
+        <Button className="SensorButton" onClick={this.open} bsStyle="primary" bsSize="large">
           79
-        </button>
+        </Button>
         <div>
         <Modal
-          isOpen={this.state.modalIsOpen}
-          onAfterOpen={this.afterOpenModal}
-          onRequestClose={this.closeModal}
-          contentLabel="Example Modal"
-          style={customStyles}
+          show={this.state.showModal}
+          onHide={this.close}
         >
-          <Chart sensor={this.props.sensor}/>
-          <button onClick={this.closeModal}>close</button>
+          <Modal.Header closeButton>
+            <Modal.Title> Sensor {this.props.sensor}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Chart sensor={this.props.sensor}/>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={this.close}>Close</Button>
+          </Modal.Footer>
         </Modal>
       </div>
       </div>
@@ -174,7 +166,7 @@ class SensorsWindow extends Component {
         active: false,
         width: 1024,
         height: 1500,
-        modalIsOpen: false
+        showModal: false
       }
 
       this.updateDimensions = this.updateDimensions.bind(this);
@@ -196,7 +188,7 @@ class SensorsWindow extends Component {
 
     render() {
       return (
-        <Grid bsClass="Test" style={{height: this.props.height}}>
+        <Grid bsClass="Test" style={{height: this.props.height * .9}}>
           <Row>
             <Col xs={6}>
               <Sensor sensor="00"/>
@@ -257,7 +249,7 @@ class App extends Component {
       active: false,
       width: 1024,
       height: 1500,
-      modalIsOpen: false
+      showModal: false
     }
 
     this.updateDimensions = this.updateDimensions.bind(this);
