@@ -33,36 +33,36 @@ class Chart extends Component {
   constructor() {
     super();
     this.state = {
-      tempsArray: []
+      temperatures: []
     }
   }
   componentDidMount() {
     const sensorRef = firebase.database().ref("sensors").child(this.props.sensor);
     sensorRef.on('value', (snapshot) => {
-      let temps = snapshot.val();
-      let tmpArray = [];
-      console.log("List of Objects " + temps);
-      Object.keys(temps).forEach(function(temp) {
-        tmpArray.push(temps[temp]);
-        let test = temps[temp];
-        console.log("Key: " + temp);
-        console.log("Temp: " + test.temp);
+      let allTemps = snapshot.val();
+      let container = [];
+      console.log("List of Objects " + allTemps);
+      Object.keys(allTemps).forEach(function(singleTemp) {
+        container.push(allTemps[singleTemp]);
+        let test = allTemps[singleTemp];
+        console.log("Key: " + singleTemp);
+        console.log("Temp: " + test.singleTemp);
         console.log("Time: " + test.time);
       });
       this.setState({
-        tempsArray: tmpArray
+        temperatures: container
       })
-      this.state.tempsArray.forEach(function(value){ console.log("Time: " + value.time + "\tTemp: " + value.temp + "\tValue: " + value); })
-      console.log("Stored Values: " + this.state.tempsArray);
+      this.state.temperatures.forEach(function(value){ console.log("Time: " + value.time + "\tTemp: " + value.singleTemp + "\tValue: " + value); })
+      console.log("Stored Values: " + this.state.temperatures);
     });
   }
   render() {
     return(
       <div>
         <LineChart
-          width={1100}
-          height={500}
-          data={this.state.tempsArray} >
+          width={this.props.width}
+          height={this.props.height}
+          data={this.state.temperatures} >
           <Line
             type="monotone"
             dataKey="temp"
@@ -147,7 +147,7 @@ class Sensor extends Component {
             <Modal.Title> Sensor {this.props.sensor}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Chart sensor={this.props.sensor}/>
+            <Chart sensor={this.props.sensor} height={this.props.height} width={this.props.width}/>
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.close}>Close</Button>
@@ -191,26 +191,26 @@ class SensorsWindow extends Component {
         <Grid bsClass="Test" style={{height: this.props.height * .9}}>
           <Row>
             <Col xs={6}>
-              <Sensor sensor="00"/>
+              <Sensor sensor="00" height={(this.props.height * .5)} width={(this.props.width * .5)}/>
             </Col>
             <Col xs={6}>
-              <Sensor sensor="01"/>
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={6}>
-              <Sensor sensor="02"/>
-            </Col>
-            <Col xs={6}>
-              <Sensor sensor="03"/>
+              <Sensor sensor="01" height={(this.props.height * .5)} width={(this.props.width * .5)}/>
             </Col>
           </Row>
           <Row>
             <Col xs={6}>
-              <Sensor sensor="04"/>
+              <Sensor sensor="02" height={(this.props.height * .5)} width={(this.props.width * .5)}/>
             </Col>
             <Col xs={6}>
-              <Sensor sensor="05"/>
+              <Sensor sensor="03" height={(this.props.height * .5)} width={(this.props.width * .5)}/>
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={6}>
+              <Sensor sensor="04" height={(this.props.height * .5)} width={(this.props.width * .5)}/>
+            </Col>
+            <Col xs={6}>
+              <Sensor sensor="05" height={(this.props.height * .5)} width={(this.props.width * .5)}/>
             </Col>
           </Row>
           <Row>
@@ -243,7 +243,7 @@ class App extends Component {
     super();
     this.state = {
       data: '',
-      tempsArray: []
+      temperatures: []
     }
     this.state = {
       active: false,
@@ -258,21 +258,21 @@ class App extends Component {
   componentDidMount() {
     const sensorRef = firebase.database().ref("sensors").child("00");
     sensorRef.on('value', (snapshot) => {
-      let temps = snapshot.val();
-      let tmpArray = [];
-      console.log("List of Objects " + temps);
-      Object.keys(temps).forEach(function(temp) {
-        tmpArray.push(temps[temp]);
-        let test = temps[temp];
-        console.log("Key: " + temp);
-        console.log("Temp: " + test.temp);
+      let allTemps = snapshot.val();
+      let container = [];
+      console.log("List of Objects " + allTemps);
+      Object.keys(allTemps).forEach(function(singleTemp) {
+        container.push(allTemps[singleTemp]);
+        let test = allTemps[singleTemp];
+        console.log("Key: " + singleTemp);
+        console.log("Temp: " + test.singleTemp);
         console.log("Time: " + test.time);
       });
       this.setState({
-        tempsArray: tmpArray
+        temperatures: container
       })
-      this.state.tempsArray.forEach(function(value){ console.log("Here's the current object:\n" + "Time: " + value.time + "\tTemp: " + value.temp + "\tValue: " + value); })
-      console.log("Stored Values: " + this.state.tempsArray);
+      this.state.temperatures.forEach(function(value){ console.log("Here's the current object:\n" + "Time: " + value.time + "\tTemp: " + value.singleTemp + "\tValue: " + value); })
+      console.log("Stored Values: " + this.state.temperatures);
     });
     this.updateDimensions();
     window.addEventListener('resize', this.updateDimensions);
@@ -300,7 +300,7 @@ class App extends Component {
           </Row>
           <Row>
             <Col xs={8} xsOffset={2} s={8}>
-              <SensorsWindow height={this.state.height}/>
+              <SensorsWindow height={this.state.height} width={this.state.width}/>
             </Col>
             <Col>
               <SensorsMenu height={this.state.height}/>
