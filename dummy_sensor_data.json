@@ -1,0 +1,208 @@
+{
+  "sensors": {
+    "00": {
+      "ascawefa": {
+        "time": "2017-08-23 23:00",
+        "temp": 84
+      },
+      "gavavefav": {
+        "time": "2017-08-23 23:05",
+        "temp": 80
+      },
+      "lnasvaslon": {
+        "time": "2017-08-23 23:10",
+        "temp": 83
+      },
+      "njlasfas": {
+        "time": "2017-08-23 23:15",
+        "temp": 77
+      },
+      "kjnascam": {
+        "time": "2017-08-23 23:20",
+        "temp": 81
+      },
+      "lasfasv": {
+        "time": "2017-08-23 23:25",
+        "temp": 87
+      },
+      "ojnkjasf": {
+        "time": "2017-08-23 23:30",
+        "temp": 93
+      },
+      "kanbsdfo": {
+        "time": "2017-08-23 23:35",
+        "temp": 86
+      }
+    },
+    "01": {
+      "ascawefa": {
+        "time": "2017-08-23 23:00",
+        "temp": 45
+      },
+      "gavavefav": {
+        "time": "2017-08-23 23:05",
+        "temp": 50
+      },
+      "lnasvaslon": {
+        "time": "2017-08-23 23:10",
+        "temp": 40
+      },
+      "njlasfas": {
+        "time": "2017-08-23 23:15",
+        "temp": 55
+      },
+      "kjnascam": {
+        "time": "2017-08-23 23:20",
+        "temp": 60
+      },
+      "lasfasv": {
+        "time": "2017-08-23 23:25",
+        "temp": 65
+      },
+      "ojnkjasf": {
+        "time": "2017-08-23 23:30",
+        "temp": 45
+      },
+      "kanbsdfo": {
+        "time": "2017-08-23 23:35",
+        "temp": 42
+      }
+    },
+    "02": {
+      "ascawefa": {
+        "time": "2017-08-23 23:00",
+        "temp": 10
+      },
+      "gavavefav": {
+        "time": "2017-08-23 23:05",
+        "temp": 12
+      },
+      "lnasvaslon": {
+        "time": "2017-08-23 23:10",
+        "temp": 15
+      },
+      "njlasfas": {
+        "time": "2017-08-23 23:15",
+        "temp": 23
+      },
+      "kjnascam": {
+        "time": "2017-08-23 23:20",
+        "temp": 22
+      },
+      "lasfasv": {
+        "time": "2017-08-23 23:25",
+        "temp": 21
+      },
+      "ojnkjasf": {
+        "time": "2017-08-23 23:30",
+        "temp": 19
+      },
+      "kanbsdfo": {
+        "time": "2017-08-23 23:35",
+        "temp": 16
+      }
+    },
+    "03": {
+      "ascawefa": {
+        "time": "2017-08-23 23:00",
+        "temp": 84
+      },
+      "gavavefav": {
+        "time": "2017-08-23 23:05",
+        "temp": 80
+      },
+      "lnasvaslon": {
+        "time": "2017-08-23 23:10",
+        "temp": 83
+      },
+      "njlasfas": {
+        "time": "2017-08-23 23:15",
+        "temp": 77
+      },
+      "kjnascam": {
+        "time": "2017-08-23 23:20",
+        "temp": 81
+      },
+      "lasfasv": {
+        "time": "2017-08-23 23:25",
+        "temp": 87
+      },
+      "ojnkjasf": {
+        "time": "2017-08-23 23:30",
+        "temp": 93
+      },
+      "kanbsdfo": {
+        "time": "2017-08-23 23:35",
+        "temp": 86
+      }
+    },
+    "04": {
+      "ascawefa": {
+        "time": "2017-08-23 23:00",
+        "temp": 45
+      },
+      "gavavefav": {
+        "time": "2017-08-23 23:05",
+        "temp": 50
+      },
+      "lnasvaslon": {
+        "time": "2017-08-23 23:10",
+        "temp": 40
+      },
+      "njlasfas": {
+        "time": "2017-08-23 23:15",
+        "temp": 55
+      },
+      "kjnascam": {
+        "time": "2017-08-23 23:20",
+        "temp": 60
+      },
+      "lasfasv": {
+        "time": "2017-08-23 23:25",
+        "temp": 65
+      },
+      "ojnkjasf": {
+        "time": "2017-08-23 23:30",
+        "temp": 45
+      },
+      "kanbsdfo": {
+        "time": "2017-08-23 23:35",
+        "temp": 42
+      }
+    },
+    "05": {
+      "ascawefa": {
+        "time": "2017-08-23 23:00",
+        "temp": 10
+      },
+      "gavavefav": {
+        "time": "2017-08-23 23:05",
+        "temp": 12
+      },
+      "lnasvaslon": {
+        "time": "2017-08-23 23:10",
+        "temp": 15
+      },
+      "njlasfas": {
+        "time": "2017-08-23 23:15",
+        "temp": 23
+      },
+      "kjnascam": {
+        "time": "2017-08-23 23:20",
+        "temp": 22
+      },
+      "lasfasv": {
+        "time": "2017-08-23 23:25",
+        "temp": 21
+      },
+      "ojnkjasf": {
+        "time": "2017-08-23 23:30",
+        "temp": 19
+      },
+      "kanbsdfo": {
+        "time": "2017-08-23 23:35",
+        "temp": 16
+      }
+    }
+  }
+}
