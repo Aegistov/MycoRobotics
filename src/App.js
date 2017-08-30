@@ -5,7 +5,7 @@ import './master.css';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
 import * as firebase from 'firebase';
 import generalChartData from './data/user.json';
-import {PageHeader, Grid, Row, Col, Modal, Button} from 'react-bootstrap';
+import {PageHeader, Grid, Row, Col, Modal, Button, Navbar, Nav, NavItem} from 'react-bootstrap';
 
 const config = {
     apiKey: "AIzaSyDlPyqOgzi6kJVZiL6dcsGBiOTdEoQce6c",
@@ -76,6 +76,13 @@ class Chart extends Component {
   }
 }
 
+class SensorUtility extends Component {
+  constructor() {
+    super();
+    this.state = {}
+  }
+}
+
 class AirSensor extends Component {
   constructor() {
     super();
@@ -134,14 +141,15 @@ class Sensor extends Component {
 
   render() {
     return(
-      <div className="SensorInfo">
-        <Button className="SensorButton" onClick={this.open} bsStyle="primary" bsSize="large">
+      <div id="SensorButtonWrapper">
+        <Button className="SensorButton" onClick={this.open} bsStyle="primary">
           79
         </Button>
-        <div>
         <Modal
           show={this.state.showModal}
           onHide={this.close}
+          dialogClassName="custom-modal"
+          container={this}
         >
           <Modal.Header closeButton>
             <Modal.Title> Sensor {this.props.sensor}</Modal.Title>
@@ -153,7 +161,6 @@ class Sensor extends Component {
             <Button onClick={this.close}>Close</Button>
           </Modal.Footer>
         </Modal>
-      </div>
       </div>
     );
   }
@@ -188,39 +195,39 @@ class SensorsWindow extends Component {
 
     render() {
       return (
-        <Grid bsClass="Test" style={{height: this.props.height * .9}}>
+        <Grid bsClass="Test" style={{height: this.props.height * 1}}>
           <Row>
-            <Col xs={6}>
-              <Sensor sensor="00" height={(this.props.height * .5)} width={(this.props.width * .5)}/>
+            <Col xs={6} id="SensorColumn">
+              <Sensor sensor="00" height={(this.props.height * .5)} width={(this.props.width * .7)}/>
             </Col>
-            <Col xs={6}>
-              <Sensor sensor="01" height={(this.props.height * .5)} width={(this.props.width * .5)}/>
+            <Col xs={6} id="SensorColumn">
+              <Sensor sensor="01" height={(this.props.height * .5)} width={(this.props.width * .7)}/>
             </Col>
           </Row>
           <Row>
-            <Col xs={6}>
-              <Sensor sensor="02" height={(this.props.height * .5)} width={(this.props.width * .5)}/>
+            <Col xs={6} id="SensorColumn">
+              <Sensor sensor="02" height={(this.props.height * .5)} width={(this.props.width * .7)}/>
             </Col>
-            <Col xs={6}>
-              <Sensor sensor="03" height={(this.props.height * .5)} width={(this.props.width * .5)}/>
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={6}>
-              <Sensor sensor="04" height={(this.props.height * .5)} width={(this.props.width * .5)}/>
-            </Col>
-            <Col xs={6}>
-              <Sensor sensor="05" height={(this.props.height * .5)} width={(this.props.width * .5)}/>
+            <Col xs={6} id="SensorColumn">
+              <Sensor sensor="03" height={(this.props.height * .5)} width={(this.props.width * .7)}/>
             </Col>
           </Row>
           <Row>
-            <Col xs={4}>
+            <Col xs={6} id="SensorColumn">
+              <Sensor sensor="04" height={(this.props.height * .5)} width={(this.props.width * .7)}/>
+            </Col>
+            <Col xs={6} id="SensorColumn">
+              <Sensor sensor="05" height={(this.props.height * .5)} width={(this.props.width * .7)}/>
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={4} id="SensorColumn">
               <AirSensor name="Temperature"/>
             </Col>
-            <Col xs={4}>
+            <Col xs={4} id="SensorColumn">
               <AirSensor name="Humidity"/>
             </Col>
-            <Col xs={4}>
+            <Col xs={4} id="SensorColumn">
               <AirSensor name="Carbon Dioxide"/>
             </Col>
           </Row>
@@ -243,9 +250,7 @@ class App extends Component {
     super();
     this.state = {
       data: '',
-      temperatures: []
-    }
-    this.state = {
+      temperatures: [],
       active: false,
       width: 1024,
       height: 1500,
@@ -253,6 +258,8 @@ class App extends Component {
     }
 
     this.updateDimensions = this.updateDimensions.bind(this);
+    this.open = this.open.bind(this);
+    this.close = this.close.bind(this);
   }
 
   componentDidMount() {
@@ -287,6 +294,15 @@ class App extends Component {
       this.setState({width: window.innerWidth, height: window.innerHeight});
   }
 
+  open() {
+    console.log("It opened!");
+    this.setState({showModal: true});
+  }
+
+  close() {
+    this.setState({showModal: false});
+  }
+
   render() {
     return (
       // Hamburger Icon for menu on left for all devices
@@ -295,11 +311,40 @@ class App extends Component {
           MycoRobotics<br/><small>Tech Meets Ag</small>
         </PageHeader>
         <br/>
+        <Navbar>
+          <Navbar.Header>
+            <Navbar.Brand>
+              <a href="#">MycoRobotics</a>
+            </Navbar.Brand>
+            <Navbar.Toggle />
+          </Navbar.Header>
+          <Navbar.Collapse>
+            <Nav pullRight>
+              <NavItem eventKey={1} onClick={this.open}>Sensor Utility</NavItem>
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
+        <Modal
+          show={this.state.showModal}
+          onHide={this.close}
+          dialogClassName="custom-modal"
+          container={this}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title> Sensor {this.props.sensor}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            Content!
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={this.close}>Close</Button>
+          </Modal.Footer>
+        </Modal>
         <Grid>
           <Row>
           </Row>
           <Row>
-            <Col xs={8} xsOffset={2} s={8}>
+            <Col id="SensorsWindowWrapper" xs={8} xsOffset={2}>
               <SensorsWindow height={this.state.height} width={this.state.width}/>
             </Col>
             <Col>
