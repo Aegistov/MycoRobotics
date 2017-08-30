@@ -17,43 +17,41 @@ const config = {
   };
 firebase.initializeApp(config);
 
-const customStyles = {
-  content : {
-    top                   : '50%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',
-    marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)',
-    backgroundColor      : 'blue'
-  }
-};
-
 class Chart extends Component {
   constructor() {
     super();
     this.state = {
-      temperatures: []
+      dataPoints: [],
+      dataKey: '',
     }
   }
   componentDidMount() {
     const sensorRef = firebase.database().ref("sensors").child(this.props.sensor);
     sensorRef.on('value', (snapshot) => {
-      let allTemps = snapshot.val();
+      let allDataPoints = snapshot.val();
       let container = [];
-      console.log("List of Objects " + allTemps);
-      Object.keys(allTemps).forEach(function(singleTemp) {
-        container.push(allTemps[singleTemp]);
-        let test = allTemps[singleTemp];
+      let keyHolder = '';
+      console.log("List of Objects " + allDataPoints);
+      Object.keys(allDataPoints).forEach(function(singleTemp) {
+        container.push(allDataPoints[singleTemp]);
+        let test = allDataPoints[singleTemp];
         console.log("Key: " + singleTemp);
-        console.log("Temp: " + test.singleTemp);
+        Object.keys(allDataPoints[singleTemp]).forEach(function(key) {
+          if (key != "time"){
+            console.log("Key within: " + key);
+            keyHolder = key;
+            console.log("Key Holder: " + keyHolder);
+          }
+        });
+        console.log("Temp: " + test[keyHolder]);
         console.log("Time: " + test.time);
       });
       this.setState({
-        temperatures: container
+        dataPoints: container,
+        dataKey: keyHolder
       })
-      this.state.temperatures.forEach(function(value){ console.log("Time: " + value.time + "\tTemp: " + value.singleTemp + "\tValue: " + value); })
-      console.log("Stored Values: " + this.state.temperatures);
+      this.state.dataPoints.forEach(function(value){ console.log("Time: " + value.time + "\tTemp: " + value.singleTemp + "\tValue: " + value); })
+      console.log("Stored Values: " + this.state.dataPoints + "\tStored Key: " + this.state.dataKey);
     });
   }
   render() {
@@ -62,14 +60,14 @@ class Chart extends Component {
         <LineChart
           width={this.props.width}
           height={this.props.height}
-          data={this.state.temperatures} >
+          data={this.state.dataPoints} >
           <Line
             type="monotone"
-            dataKey="temp"
+            dataKey={this.state.dataKey}
             stroke="#8884d8" />
           <CartesianGrid stroke="#ccc" />
           <XAxis dataKey="time" />
-          <YAxis />
+          <YAxis type="number" domain={['dataMin - 5', 'dataMax + 5']}/>
         </LineChart>
       </div>
     );
@@ -80,35 +78,6 @@ class SensorUtility extends Component {
   constructor() {
     super();
     this.state = {}
-  }
-}
-
-class AirSensor extends Component {
-  constructor() {
-    super();
-    this.state = {}
-  }
-  render() {
-    return (
-      <div className="AirSensorInfo">
-          <button className="AirSensorButton" onClick={this.openModal}>
-            <h3>{this.props.name}</h3>
-            79
-          </button>
-          <div>
-          <Modal
-            isOpen={this.state.showModal}
-            onAfterOpen={this.afterOpenModal}
-            onRequestClose={this.closeModal}
-            contentLabel="Example Modal"
-            style={customStyles}
-          >
-            <Chart />
-            <button onClick={this.closeModal}>close</button>
-          </Modal>
-        </div>
-      </div>
-    );
   }
 }
 
@@ -143,6 +112,7 @@ class Sensor extends Component {
     return(
       <div id="SensorButtonWrapper">
         <Button className="SensorButton" onClick={this.open} bsStyle="primary">
+        <h3>{this.props.name}</h3>
           79
         </Button>
         <Modal
@@ -222,13 +192,13 @@ class SensorsWindow extends Component {
           </Row>
           <Row>
             <Col xs={4} id="SensorColumn">
-              <AirSensor name="Temperature"/>
+              <Sensor name="Temperature" sensor="AirTemperature" height={(this.props.height * .5)} width={(this.props.width * .7)}/>
             </Col>
             <Col xs={4} id="SensorColumn">
-              <AirSensor name="Humidity"/>
+              <Sensor name="Humidity" sensor="AirHumidity" height={(this.props.height * .5)} width={(this.props.width * .7)}/>
             </Col>
             <Col xs={4} id="SensorColumn">
-              <AirSensor name="Carbon Dioxide"/>
+              <Sensor name="Carbon Dioxide" sensor="AirCarbonDioxide" height={(this.props.height * .5)} width={(this.props.width * .7)}/>
             </Col>
           </Row>
         </Grid>
@@ -250,7 +220,7 @@ class App extends Component {
     super();
     this.state = {
       data: '',
-      temperatures: [],
+      dataPoints: [],
       active: false,
       width: 1024,
       height: 1500,
@@ -265,21 +235,21 @@ class App extends Component {
   componentDidMount() {
     const sensorRef = firebase.database().ref("sensors").child("00");
     sensorRef.on('value', (snapshot) => {
-      let allTemps = snapshot.val();
+      let allDataPoints = snapshot.val();
       let container = [];
-      console.log("List of Objects " + allTemps);
-      Object.keys(allTemps).forEach(function(singleTemp) {
-        container.push(allTemps[singleTemp]);
-        let test = allTemps[singleTemp];
+      console.log("List of Objects " + allDataPoints);
+      Object.keys(allDataPoints).forEach(function(singleTemp) {
+        container.push(allDataPoints[singleTemp]);
+        let test = allDataPoints[singleTemp];
         console.log("Key: " + singleTemp);
         console.log("Temp: " + test.singleTemp);
         console.log("Time: " + test.time);
       });
       this.setState({
-        temperatures: container
+        dataPoints: container
       })
-      this.state.temperatures.forEach(function(value){ console.log("Here's the current object:\n" + "Time: " + value.time + "\tTemp: " + value.singleTemp + "\tValue: " + value); })
-      console.log("Stored Values: " + this.state.temperatures);
+      this.state.dataPoints.forEach(function(value){ console.log("Here's the current object:\n" + "Time: " + value.time + "\tTemp: " + value.singleTemp + "\tValue: " + value); })
+      console.log("Stored Values: " + this.state.dataPoints);
     });
     this.updateDimensions();
     window.addEventListener('resize', this.updateDimensions);

@@ -203,6 +203,108 @@
         "time": "2017-08-23 23:35",
         "temp": 16
       }
+    },
+    "AirTemperature": {
+      "ascawefa": {
+        "time": "2017-08-23 23:00",
+        "temp": 84
+      },
+      "gavavefav": {
+        "time": "2017-08-23 23:05",
+        "temp": 80
+      },
+      "lnasvaslon": {
+        "time": "2017-08-23 23:10",
+        "temp": 83
+      },
+      "njlasfas": {
+        "time": "2017-08-23 23:15",
+        "temp": 77
+      },
+      "kjnascam": {
+        "time": "2017-08-23 23:20",
+        "temp": 81
+      },
+      "lasfasv": {
+        "time": "2017-08-23 23:25",
+        "temp": 87
+      },
+      "ojnkjasf": {
+        "time": "2017-08-23 23:30",
+        "temp": 93
+      },
+      "kanbsdfo": {
+        "time": "2017-08-23 23:35",
+        "temp": 86
+      }
+    },
+    "AirHumidity": {
+      "ascawefa": {
+        "time": "2017-08-23 23:00",
+        "humidity": 45
+      },
+      "gavavefav": {
+        "time": "2017-08-23 23:05",
+        "humidity": 50
+      },
+      "lnasvaslon": {
+        "time": "2017-08-23 23:10",
+        "humidity": 40
+      },
+      "njlasfas": {
+        "time": "2017-08-23 23:15",
+        "humidity": 55
+      },
+      "kjnascam": {
+        "time": "2017-08-23 23:20",
+        "humidity": 60
+      },
+      "lasfasv": {
+        "time": "2017-08-23 23:25",
+        "humidity": 65
+      },
+      "ojnkjasf": {
+        "time": "2017-08-23 23:30",
+        "humidity": 45
+      },
+      "kanbsdfo": {
+        "time": "2017-08-23 23:35",
+        "humidity": 42
+      }
+    },
+    "AirCarbonDioxide": {
+      "ascawefa": {
+        "time": "2017-08-23 23:00",
+        "CO2": 10
+      },
+      "gavavefav": {
+        "time": "2017-08-23 23:05",
+        "CO2": 12
+      },
+      "lnasvaslon": {
+        "time": "2017-08-23 23:10",
+        "CO2": 15
+      },
+      "njlasfas": {
+        "time": "2017-08-23 23:15",
+        "CO2": 23
+      },
+      "kjnascam": {
+        "time": "2017-08-23 23:20",
+        "CO2": 22
+      },
+      "lasfasv": {
+        "time": "2017-08-23 23:25",
+        "CO2": 21
+      },
+      "ojnkjasf": {
+        "time": "2017-08-23 23:30",
+        "CO2": 19
+      },
+      "kanbsdfo": {
+        "time": "2017-08-23 23:35",
+        "CO2": 16
+      }
     }
   }
 }
