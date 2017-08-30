@@ -84,7 +84,7 @@
   width: 100%;
   height: 100%;
   background-color: green;
-  font-size: 80px;
+  font-size: 10vmax;
 }
 
 .AirSensorInfo {
