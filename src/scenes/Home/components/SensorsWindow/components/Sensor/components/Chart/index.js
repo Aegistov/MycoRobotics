@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
+import './Chart.css'
+
 
 class Chart extends Component {
   constructor() {
@@ -13,31 +15,22 @@ class Chart extends Component {
   componentDidMount() {
     const sensorRef = firebase.database().ref("sensors").child(this.props.sensor);
     sensorRef.on('value', (snapshot) => {
-      let allDataPoints = snapshot.val();
-      let container = [];
-      let keyHolder = '';
-      console.log("List of Objects " + allDataPoints);
-      Object.keys(allDataPoints).forEach(function(singlePoint) {
-        container.push(allDataPoints[singlePoint]);
-        let test = allDataPoints[singlePoint];
-        console.log("Key: " + singlePoint);
-        Object.keys(allDataPoints[singlePoint]).forEach(function(key) {
-          if (key !== "time"){
-            console.log("Key within: " + key);
-            keyHolder = key;
-            console.log("Key Holder: " + keyHolder);
-          }
-        });
-        console.log("Temp: " + test[keyHolder]);
-        console.log("Time: " + test.time);
+      let dbDataPoints = snapshot.val();
+      let dataPoints = [];
+      console.log(dbDataPoints);
+      Object.keys(dbDataPoints).forEach(function(idx) {
+        dataPoints.push(dbDataPoints[idx]);
       });
       this.setState({
-        dataPoints: container,
+        dataPoints,
         dataKey: keyHolder
       })
-      this.state.dataPoints.forEach(function(value){ console.log("Time: " + value.time + "\tTemp: " + value.singlePoint + "\tValue: " + value); })
+      this.state.dataPoints.forEach(function(value){ console.log("Time: " + value.time + "\tTemp: " + value.temp + "\tValue: " + value); })
       console.log("Stored Values: " + this.state.dataPoints + "\tStored Key: " + this.state.dataKey);
     });
+  }
+  componentWillUnmount() {
+    console.log("Unmounting chart")
   }
   render() {
     return(
