@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Modal, Button} from 'react-bootstrap';
 import Chart from './components/Chart/index.js';
+import './style.css';
 
 class Sensor extends Component {
   constructor() {
@@ -33,7 +34,7 @@ class Sensor extends Component {
     return(
       <div id="SensorButtonWrapper">
         <Button className="SensorButton" onClick={this.open} bsStyle="primary">
-        <h3>{this.props.name}</h3>
+        <h3>{this.props.sensor}</h3>
           79
         </Button>
         <Modal

@@ -1,0 +1,11 @@
+#SensorButtonWrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.SensorButton {
+  width: 100%;
+  height: 100%;
+  background-color: green;
+  font-size: 10vmax;
+}

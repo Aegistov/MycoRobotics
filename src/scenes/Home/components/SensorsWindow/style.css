@@ -1,0 +1,13 @@
+.Test {
+  background-color: skyblue;
+}
+.Test .row {
+  height: 25%;
+  width: 100%;
+  margin: auto;
+}
+
+#SensorColumn {
+  padding: 0;
+  height: 100%;
+}

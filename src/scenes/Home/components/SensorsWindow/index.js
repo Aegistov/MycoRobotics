@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Row, Col, Grid} from 'react-bootstrap';
-import Sensor from './components/Sensor'
+import Sensor from './components/Sensor';
+import './style.css';
 
 class SensorsWindow extends Component {
     constructor() {

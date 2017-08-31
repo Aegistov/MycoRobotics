@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {PageHeader, Grid, Row, Col, Modal, Button, Navbar, Nav, NavItem} from 'react-bootstrap';
 import SensorsWindow from './components/SensorsWindow';
-
+import './style.css';
 class Home extends Component {
   constructor() {
     super();
