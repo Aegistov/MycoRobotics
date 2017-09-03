@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
-import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
+import { LineChart, Line, CartesianGrid, XAxis, YAxis, ReferenceLine } from 'recharts';
 import './Chart.css'
 
 
@@ -8,29 +8,20 @@ class Chart extends Component {
   constructor() {
     super();
     this.state = {
-      dataPoints: [],
-      dataKey: '',
+      dataPoints: []
     }
   }
   componentDidMount() {
+    console.log(this.props.sensor);
     const sensorRef = firebase.database().ref("sensors").child(this.props.sensor);
     sensorRef.on('value', (snapshot) => {
       let dbDataPoints = snapshot.val();
       let dataPoints = [];
-      console.log(dbDataPoints);
-      Object.keys(dbDataPoints).forEach(function(idx) {
-        dataPoints.push(dbDataPoints[idx]);
+      Object.keys(dbDataPoints).forEach(function(singleTemp) {
+        dataPoints.push(dbDataPoints[singleTemp]);
       });
-      this.setState({
-        dataPoints,
-        dataKey: keyHolder
-      })
-      this.state.dataPoints.forEach(function(value){ console.log("Time: " + value.time + "\tTemp: " + value.temp + "\tValue: " + value); })
-      console.log("Stored Values: " + this.state.dataPoints + "\tStored Key: " + this.state.dataKey);
+      this.setState({ dataPoints });
     });
-  }
-  componentWillUnmount() {
-    console.log("Unmounting chart")
   }
   render() {
     return(
@@ -41,11 +32,12 @@ class Chart extends Component {
           data={this.state.dataPoints} >
           <Line
             type="monotone"
-            dataKey={this.state.dataKey}
+            dataKey="temp"
             stroke="#8884d8" />
           <CartesianGrid stroke="#ccc" />
           <XAxis dataKey="time" />
           <YAxis type="number" domain={['dataMin - 5', 'dataMax + 5']}/>
+          <ReferenceLine y={50} label="Max" stroke="red" strokeDasharray="3 3" />
         </LineChart>
       </div>
     );
