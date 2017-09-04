@@ -16,9 +16,14 @@ class Sensor extends Component {
     this.open = this.open.bind(this);
     this.close = this.close.bind(this);
     this.toggleChart = this.toggleChart.bind(this);
+    this.getCurrentRead = this.getCurrentRead.bind(this);
   }
 
   componentDidMount() {
+    this.getCurrentRead();
+  }
+
+  getCurrentRead() {
     let tempRead = 0;
     const sensorRef = firebase.database().ref("sensors").child(this.props.sensor);
     sensorRef.on('child_added', (snapshot, prevChildKey) => {
@@ -38,6 +43,7 @@ class Sensor extends Component {
       this.setState({currentRead: tempRead});
       console.log("State: " + this.state.currentRead);
     });
+
   }
 
   open() {

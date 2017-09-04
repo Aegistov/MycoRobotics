@@ -82,7 +82,38 @@ class SensorsWindow extends Component {
     render() {
       return (
         <Grid bsClass="SensorsWindow" style={{height: this.props.height * 1}}>
-            {this.state.sensorBlocks}
+        <Row bsClass="SColumn" style={{height: this.state.sensorHeight.toString() + "%"}}>
+          <Col xs={6} id='SensorColumn'>
+            <Sensor sensor="00" height={(this.props.height * .5)} width={(this.props.width * .7)}/>
+          </Col>
+          <Col xs={6} id='SensorColumn'>
+            <Sensor sensor="01" height={(this.props.height * .5)} width={(this.props.width * .7)}/>
+          </Col>
+        </Row>
+        <Row bsClass="SColumn" style={{height: this.state.sensorHeight.toString() + "%"}}>
+          <Col xs={6} id='SensorColumn'>
+            <Sensor sensor="02" height={(this.props.height * .5)} width={(this.props.width * .7)}/>
+          </Col>
+          <Col xs={6} id='SensorColumn'>
+            <Sensor sensor="03" height={(this.props.height * .5)} width={(this.props.width * .7)}/>
+          </Col>
+        </Row>
+        <Row bsClass="SColumn" style={{height: this.state.sensorHeight.toString() + "%"}}>
+          <Col xs={6} id='SensorColumn'>
+            <Sensor sensor="04" height={(this.props.height * .5)} width={(this.props.width * .7)}/>
+          </Col>
+          <Col xs={6} id='SensorColumn'>
+            <Sensor sensor="05" height={(this.props.height * .5)} width={(this.props.width * .7)}/>
+          </Col>
+        </Row>
+        <Row bsClass="SColumn" style={{height: this.state.sensorHeight.toString() + "%"}}>
+          <Col xs={6} id='SensorColumn'>
+            <Sensor sensor="05" height={(this.props.height * .5)} width={(this.props.width * .7)}/>
+          </Col>
+          <Col xs={6} id='SensorColumn'>
+            <Sensor sensor="05" height={(this.props.height * .5)} width={(this.props.width * .7)}/>
+          </Col>
+        </Row>
           <Row id="AirSensors" bsClass="SColumn" style={{height: this.state.sensorHeight.toString() + "%"}}>
             <Row id="AirSensorsHeader">
               <h6>Air Sensor</h6>
