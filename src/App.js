@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-import './master.css';
 import Home from './scenes/Home';
 import * as firebase from 'firebase';
 

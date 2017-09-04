@@ -1,0 +1,25 @@
+.SensorsWindow {
+  background-color: skyblue;
+}
+.SColumn {
+  background-color: purple;
+}
+.SensorsWindow .row {
+  /*height: 12.5%;*/
+  width: 100%;
+  margin: auto;
+}
+
+#SensorColumn {
+  padding: 0;
+  height: 100%;
+}
+
+#AirSensorsContent{
+  height: 75%;
+}
+
+#AirSensorsHeader {
+  height: 25%;
+  padding-bottom: 10px;
+}
