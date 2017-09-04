@@ -37,32 +37,43 @@ class SensorsWindow extends Component {
     }
 
     createSensorWindow() {
-      this.setState({sensorHeight: 100 / this.state.sensorQuantity});
+      let rowQuantity = (this.props.width >= 768) ? Math.ceil(this.state.sensorQuantity / 4) + 1 : Math.ceil(this.state.sensorQuantity / 2) + 1;
+      console.log("Row Quantity: " + rowQuantity + "\tOption 1: " + this.state.sensorQuantity / 4 + "\tOption 2: " + this.state.sensorQuantity / 2);
+      this.setState({sensorHeight: 100 / rowQuantity});
       console.log("Sensor Height: " + this.state.sensorHeight + "\tSensor Quantity: " + this.state.sensorQuantity);
       console.log("Reading Height: " + this.props.height + "\tReading Width: " + this.props.width);
       let columnSet = [];
+      let rowSet = [];
       let currentSensor = 0;
       if (this.props.width >= 768) {
-        for (let max = 0; max < 4; max++) {
-          columnSet.push(<Col xs={3} id="SensorColumn" key={currentSensor}><Sensor sensor={currentSensor.toString()} height={(this.props.height * .5)} width={(this.props.width * .7)} key={currentSensor} /></Col>);
-          currentSensor++;
-        }
-        console.log("Row: " + <Row bsClass="SColumn" style={{height: this.state.sensorHeight.toString() + "%"}}>);
+          while(currentSensor < this.state.sensorQuantity) {
+            for (let max = 0; max < 4; max++) {
+              columnSet.push(<Col xs={3} id='SensorColumn' key={currentSensor}><Sensor sensor={currentSensor.toString()} height={(this.props.height * .5)} width={(this.props.width * .7)} key={currentSensor} /></Col>);
+              console.log("Current Sensor: " + currentSensor);
+              currentSensor++;
+            }
+            rowSet.push(<Row bsClass="SColumn" style={{height: this.state.sensorHeight.toString() + "%"}} key={currentSensor + (Math.random() * (6 - 1) + 1)}>{columnSet}</Row>);
+            columnSet = [];
+          }
       }
       else {
-        for (let max = 0; max < 2; max++) {
-          columnSet.push(<Col xs={6} id="SensorColumn" key={currentSensor}><Sensor sensor={currentSensor.toString()} height={(this.props.height * .5)} width={(this.props.width * .7)} key={currentSensor} /></Col>);
-          currentSensor++;
+        while (currentSensor < this.state.sensorQuantity) {
+          for (let max = 0; max < 2; max++) {
+            columnSet.push(<Col xs={6} id='SensorColumn' key={currentSensor}><Sensor sensor={currentSensor.toString()} height={(this.props.height * .5)} width={(this.props.width * .7)} key={currentSensor} /></Col>);
+            currentSensor++;
+          }
+          rowSet.push(<Row bsClass="SColumn" style={{height: this.state.sensorHeight.toString() + "%"}} key={currentSensor + (Math.random() * (6 - 1) + 1)}>{columnSet}</Row>);
+          columnSet = [];
         }
       }
-      this.setState({sensorBlocks: columnSet});
+      this.setState({sensorBlocks: rowSet});
       console.log("Current Sensor: " + currentSensor + "\tColumns: " + columnSet + "\tColumns in State: " + this.state.sensorBlocks);
     }
 
     getSensorQuantity() {
       const sensorRef = firebase.database().ref("sensors");
       sensorRef.once('value').then((snapshot) => {
-        this.setState({sensorQuantity: snapshot.numChildren() - 2});
+        this.setState({sensorQuantity: snapshot.numChildren() - 3});
         console.log("Number of Sensors: " + this.state.sensorQuantity + "\tSensor Height: " + this.state.sensorHeight);
         this.createSensorWindow();
       });
@@ -71,41 +82,7 @@ class SensorsWindow extends Component {
     render() {
       return (
         <Grid bsClass="SensorsWindow" style={{height: this.props.height * 1}}>
-          <Row bsClass="SColumn" style={{height: this.state.sensorHeight.toString() + "%"}}>
             {this.state.sensorBlocks}
-          </Row>
-          <Row bsClass="SColumn" style={{height: this.state.sensorHeight.toString() + "%"}}>
-            <Col xs={6} id="SensorColumn">
-              <Sensor sensor="04" height={(this.props.height * .5)} width={(this.props.width * .7)}/>
-            </Col>
-            <Col xs={6} id="SensorColumn">
-              <Sensor sensor="05" height={(this.props.height * .5)} width={(this.props.width * .7)}/>
-            </Col>
-          </Row>
-          <Row bsClass="SColumn" style={{height: this.state.sensorHeight.toString() + "%"}}>
-            <Col xs={6} id="SensorColumn">
-              <Sensor sensor="00" height={(this.props.height * .5)} width={(this.props.width * .7)}/>
-            </Col>
-            <Col xs={6} id="SensorColumn">
-              <Sensor sensor="01" height={(this.props.height * .5)} width={(this.props.width * .7)}/>
-            </Col>
-          </Row>
-          <Row bsClass="SColumn" style={{height: this.state.sensorHeight.toString() + "%"}}>
-            <Col xs={6} id="SensorColumn">
-              <Sensor sensor="00" height={(this.props.height * .5)} width={(this.props.width * .7)}/>
-            </Col>
-            <Col xs={6} id="SensorColumn">
-              <Sensor sensor="01" height={(this.props.height * .5)} width={(this.props.width * .7)}/>
-            </Col>
-          </Row>
-          <Row bsClass="SColumn" style={{height: this.state.sensorHeight.toString() + "%"}}>
-            <Col xs={6} id="SensorColumn">
-              <Sensor sensor="00" height={(this.props.height * .5)} width={(this.props.width * .7)}/>
-            </Col>
-            <Col xs={6} id="SensorColumn">
-              <Sensor sensor="01" height={(this.props.height * .5)} width={(this.props.width * .7)}/>
-            </Col>
-          </Row>
           <Row id="AirSensors" bsClass="SColumn" style={{height: this.state.sensorHeight.toString() + "%"}}>
             <Row id="AirSensorsHeader">
               <h6>Air Sensor</h6>
