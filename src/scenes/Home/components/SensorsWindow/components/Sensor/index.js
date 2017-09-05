@@ -28,20 +28,7 @@ class Sensor extends Component {
     const sensorRef = firebase.database().ref("sensors").child(this.props.sensor);
     sensorRef.on('child_added', (snapshot, prevChildKey) => {
       let newChild = snapshot.val();
-      let keyHolder = '';
-      console.log("New Child: " + newChild);
-      console.log("New Child Temp: " + newChild.temp);
-      Object.keys(newChild).forEach(function(key) {
-        if (key !== "time"){
-          console.log("Key within: " + key);
-          keyHolder = key;
-          console.log("Key Holder: " + keyHolder);
-        }
-        tempRead = newChild[keyHolder];
-      });
-      console.log("Temp read: " + tempRead);
-      this.setState({currentRead: tempRead});
-      console.log("State: " + this.state.currentRead);
+      this.setState({currentRead: newChild['temp']});
     });
 
   }

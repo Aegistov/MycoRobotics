@@ -84,7 +84,7 @@ class SensorsWindow extends Component {
         <Grid bsClass="SensorsWindow" style={{height: this.props.height * 1}}>
         <Row bsClass="SColumn" style={{height: this.state.sensorHeight.toString() + "%"}}>
           <Col xs={6} id='SensorColumn'>
-            <Sensor sensor="00" height={(this.props.height * .5)} width={(this.props.width * .7)}/>
+            <Sensor sensor="00_m" height={(this.props.height * .5)} width={(this.props.width * .7)}/>
           </Col>
           <Col xs={6} id='SensorColumn'>
             <Sensor sensor="01" height={(this.props.height * .5)} width={(this.props.width * .7)}/>
