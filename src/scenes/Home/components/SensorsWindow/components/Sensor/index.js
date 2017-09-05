@@ -33,7 +33,8 @@ class Sensor extends Component {
       console.log("New Child Temp: " + newChild.temp);
       Object.keys(newChild).forEach(function(key) {
         if (key !== "time"){
-          console.log("Key within: " + key);
+        console.log("test123");  
+	console.log("Key within: " + key);
           keyHolder = key;
           console.log("Key Holder: " + keyHolder);
         }
@@ -64,9 +65,14 @@ class Sensor extends Component {
     return(
       <div id="SensorButtonWrapper">
         <Button className="SensorButton" onClick={this.open} bsStyle="primary">
-        <h3>{this.props.sensor}</h3>
-          {this.state.currentRead}
-        </Button>
+        
+	<h3>{this.props.sensor}</h3>
+	<p id="bvalue"> 
+        <img src="https://image.flaticon.com/icons/png/512/63/63581.png" alt="temp" /> 
+	{this.state.currentRead}℉
+        
+	</p>
+	</Button>
         <Modal
           show={this.state.showModal}
           onHide={this.close}
